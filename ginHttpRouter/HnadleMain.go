@@ -8,7 +8,7 @@ import (
 
 func main() {
 	engine := gin.Default()
-
+	// http://localhost:9090/hello?name=kris
 	engine.Handle("GET", "/hello", func(context *gin.Context) {
 		path := context.FullPath()
 		fmt.Println(path)
@@ -20,17 +20,17 @@ func main() {
 		context.Writer.Write([]byte("Hello ," + name))
 	})
 
-	//post
 	engine.Handle("POST", "/login", func(context *gin.Context) {
 		fmt.Println(context.FullPath())
 
-		// username := context.PostForm("username")
-		// password := context.PostForm("password")
-		fmt.Println(context.PostForm("u"))
-		fmt.Println(context.PostForm("p"))
+		username, _ := context.GetPostForm("username")
+		fmt.Println(username)
 
-		// context.Writer.Write([]byte(username + "logined"))
+		password, _ := context.GetPostForm("password")
+		fmt.Println(password)
+
+		context.Writer.Write([]byte("login user:" + username + "pwd:" + password))
 	})
 
-	engine.Run()
+	engine.Run(":9090")
 }
