@@ -44,7 +44,7 @@ func (cv *CustomerView) mainMenu() {
 			fmt.Println("------------------------show customer-----------------------")
 			cv.show()
 		case "5":
-			cv.loop = false
+			cv.exitProgram()
 			fmt.Println("---------------------------bye bye--------------------------")
 		}
 	}
@@ -111,5 +111,20 @@ func (cv *CustomerView) delete() {
 		} else {
 			fmt.Printf("--------------------------failed----------------------------\n\n")
 		}
+	}
+}
+
+func (cv *CustomerView) exitProgram() {
+	key := ""
+	fmt.Print("Are you sure to exit? y|n: ")
+	fmt.Scanln(&key)
+
+	if key == "Y" || key == "y" {
+		cv.loop = false
+	} else if key == "n" || key == "N" {
+		fmt.Printf("--------------------------cancel----------------------------\n\n")
+	} else {
+		fmt.Printf("-------------------------wrong key--------------------------\n\n")
+		cv.exitProgram()
 	}
 }

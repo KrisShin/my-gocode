@@ -2,6 +2,7 @@ package services
 
 import (
 	"CustomerManage/models"
+	"fmt"
 )
 
 // 该结构体主要完成对customer的具体操作, 包括增删改查
@@ -38,37 +39,37 @@ func (cs *CustomerService) UpdateCustomer(id int) bool {
 		name := ""
 		fmt.Printf("Name(%s): ", customer.Name)
 		fmt.Scanln(&name)
-		if name!=nil {
+		if name!="" {
 			customer.Name = name
 		}
 		age := 0
-		fmt.Print("Age(%v): ", customer.Age)
+		fmt.Printf("Age(%v): ", customer.Age)
 		fmt.Scanln(&age)
-		if age!=-1{
+		if age>0{
 			customer.Age = age
 		}
 		gender := ""
-		fmt.Print("Gender(%s): ", customer.Gender)
+		fmt.Printf("Gender(%s): ", customer.Gender)
 		fmt.Scanln(&gender)
-		if gender!=nil{
+		if gender!=""{
 			customer.Gender = gender
 		}
 		phone := ""
-		fmt.Print("Phone(%s): ", customer.Phone)
+		fmt.Printf("Phone(%s): ", customer.Phone)
 		fmt.Scanln(&phone)
-		if phone!=nil{
+		if phone != ""{
 			customer.Phone = phone
 		}
 		email := ""
-		fmt.Print("Email(%s): ", customer.Email)
+		fmt.Printf("Email(%s): ", customer.Email)
 		fmt.Scanln(&email)
 		if age!=0 && age!=customer.Age{
 			customer.Age = age
 		}
-	}
 
-	customer := models.AddCustomer(name, age, gender, phone, email)
-	return cs.customers
+		cs.customers[index]=customer
+	}
+	return true
 }
 
 func (cs *CustomerService) DeleteCustomer(id int) bool {
