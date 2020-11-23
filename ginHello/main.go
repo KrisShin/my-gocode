@@ -14,7 +14,7 @@ func main() {
 		context.Writer.Write([]byte("hello gin\n"))
 	})
 
-	if err := engine.Run(":9090"); err != nil {
+	if err := engine.Run("0.0.0.0:9090"); err != nil {
 		log.Fatal(err.Error())
 	}
 }
