@@ -20,7 +20,7 @@ function generateUUID() {
 
 function generateImageCode() {
     $.ajax({
-        url: '/users/captcha/',
+        url: '/users/captcha',
         type: 'POST',
         dataType: 'json',
         success: function (data) {
@@ -119,7 +119,7 @@ $(document).ready(function () {
             return;
         }
         $.ajax({
-            url: '/users/register/',
+            url: '/users/register',
             type: 'POST',
             dataType: 'json',
             data: {'mobile': mobile, 'imgcode': imgcode, 'password': passwd, 'password2': passwd2},

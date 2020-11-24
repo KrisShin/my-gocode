@@ -1,12 +1,21 @@
-{% extends 'base_main.html' %}
-{% block title %}
-    爱家-注册
-{% endblock %}
-{% block css %}
-    {{ super() }}
-    <link href="/static/css/ihome/register.css" rel="stylesheet">
-{% endblock %}
-{% block content %}
+{{define "register.html"}}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>
+            爱家-注册
+        </title>
+        <link href="/static/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/static/css/reset.css" rel="stylesheet">
+        <link href="/static/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+        <link href="/static/css/ihome/main.css" rel="stylesheet">
+        <link href="/static/css/ihome/register.css" rel="stylesheet">
+    </head>
+    <body>
     <div class="logo-bar"><a href="/"><img src="/static/images/logo@128x59.png"></a></div>
     <form class="form-register" method="post">
         <div class="form-group form-group-lg">
@@ -19,9 +28,9 @@
         <div class="form-group form-group-lg">
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-image fa-lg fa-fw"></i></div>
-                <input type="text" class="form-control"  id="imagecode" placeholder="图片验证码" required>
+                <input type="text" class="form-control" id="imagecode" placeholder="图片验证码" required>
                 <div class="input-group-addon image-code" style="width: 80px" onclick="generateImageCode();"><p
-                        id="captcha"></p></div>
+                            id="captcha">获取验证码</p></div>
             </div>
         </div>
         <div class="error-msg" id="image-code-err"><i class="fa fa-exclamation-circle"></i><span></span></div>
@@ -40,10 +49,17 @@
         </div>
         <div class="error-msg" id="password2-err"><i class="fa fa-exclamation-circle"></i><span></span></div>
         <button type="submit" class="btn btn-lg btn-theme btn-block">立即注册</button>
-        <p class="login-a">已有账号，<a href="{{ url_for('users.render_login') }}">立即登陆</a></p>
+        <p class="login-a">已有账号，<a href="/login">立即登陆</a></p>
     </form>
-{% endblock %}
-{% block js %}
-    {{ super() }}
+    <div class="footer">
+        <p><span><i class="fa fa-copyright"></i></span>爱家租房&nbsp;&nbsp;享受家的温馨</p>
+    </div>
+    </body>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="/static/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script src="/static/js/template.js"></script>
     <script src="/static/js/ihome/register.js"></script>
-{% endblock %}
+    </html>
+{{end}}
