@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"math/rand"
 	"time"
 )
@@ -19,15 +18,11 @@ func RandString(len int) string {
 		b := r.Intn(26)
 		cha := r.Intn(2)
 		if cha == 1 {
-			b += 65  // 大写字母
+			b += 65 // 大写字母
 		} else {
-			b += 97  // 小写字母
+			b += 97 // 小写字母
 		}
 		bytes[i] = byte(b)
 	}
 	return string(bytes)
-}
-
-func main() {
-	fmt.Println(RandString(4))
 }

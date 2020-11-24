@@ -78,6 +78,8 @@ $(document).ready(function () {
     generateImageCode();
     $("#mobile").focus(function () {
         $("#mobile-err").hide();
+    });$("#username").focus(function () {
+        $("#mobile-err").hide();
     });
     $("#imagecode").focus(function () {
         $("#image-code-err").hide();
@@ -95,6 +97,7 @@ $(document).ready(function () {
     $(".form-register").submit(function (e) {
         e.preventDefault();
         mobile = $("#mobile").val();
+        username = $("#username").val();
         imgcode = $("#imagecode").val();
         passwd = $("#password").val();
         passwd2 = $("#password2").val();
@@ -122,7 +125,7 @@ $(document).ready(function () {
             url: '/users/register',
             type: 'POST',
             dataType: 'json',
-            data: {'mobile': mobile, 'imgcode': imgcode, 'password': passwd, 'password2': passwd2},
+            data: {'phone': mobile, 'name': username, 'password': passwd, 'password2': passwd2},
             success: function (data) {
                 if (data.code == 200) {
                     window.location.href = '/users/render_login/'

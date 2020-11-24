@@ -1,9 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"gin-ihome/house"
 	"gin-ihome/user"
-
+	"gin-ihome/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,6 +19,7 @@ func MainView(engine *gin.Engine) {
 func UsersUrl(engine *gin.Engine) {
 	users := engine.Group("/users")
 	users.POST("/captcha", user.Captcha)
+	users.POST("/register", user.Register)
 }
 func HouseUrl(engine *gin.Engine) {
 	//house := engine.Group("/house")
@@ -29,6 +31,17 @@ func OrdersUrl(engine *gin.Engine) {
 }
 
 func main() {
+	db1 := utils.Connection()
+	db, _ := db1.DB()
+	defer db.Close()
+	if (db.HasTable(&user.User{})) {
+		db.Set("gorm:table_options", "ENGINE=InnoDB").CreateTable(&user.User{})
+		fmt.Println("created user table")
+	}
+	if (db.HasTable(&house.House{})) {
+		db.Set("gorm:table_options", "ENGINE=InnoDB").CreateTable(&house.House{})
+		fmt.Println("created house table")
+	}
 	engine := gin.Default()
 	engine.Static("/static", "static")
 	engine.LoadHTMLGlob("templates/*")
