@@ -14,6 +14,6 @@ type User struct {
 	IdName       string `form:"id_name"`
 	IdCard       string `form:"id_card" gorm:"unique;size:19"`
 
-	Houses []House `gorm:"foreignKey:ID"`
+	//Houses []House `gorm:"foreignKey:ID"`
 	//orders		order.Order
 }

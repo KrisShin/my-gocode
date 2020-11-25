@@ -32,4 +32,5 @@ type Area struct {
 type Facility struct {
 	gorm.Model
 	Name string `gorm:"unique;not null"`
+	Icon string `gorm :"not null"`
 }
