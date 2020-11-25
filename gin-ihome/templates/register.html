@@ -21,19 +21,21 @@
         <div class="form-group form-group-lg">
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-mobile fa-2x fa-fw"></i></div>
-                <input type="text" class="form-control" id="username" placeholder="用户名" required>
+                <input type="text" class="form-control" name="name" id="username" placeholder="用户名" required>
             </div>
-        </diiv class="form-group form-group-lg">
+        </div>
+        <div class="error-msg" id="name-err"><i class="fa fa-exclamation-circle"></i><span></span></div>
+        <div class="form-group form-group-lg">
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-mobile fa-2x fa-fw"></i></div>
-                <input type="number" class="form-control" id="mobile" placeholder="手机号" required>
+                <input type="number" class="form-control" name="phone" id="mobile" placeholder="手机号" required>
             </div>
         </div>
         <div class="error-msg" id="mobile-err"><i class="fa fa-exclamation-circle"></i><span></span></div>
         <div class="form-group form-group-lg">
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-image fa-lg fa-fw"></i></div>
-                <input type="text" class="form-control" id="imagecode" placeholder="图片验证码" required>
+                <input type="text" class="form-control" name="imagecode" id="imagecode" placeholder="图片验证码" required>
                 <div class="input-group-addon image-code" style="width: 80px" onclick="generateImageCode();"><p
                             id="captcha">获取验证码</p></div>
             </div>
@@ -42,7 +44,7 @@
         <div class="form-group form-group-lg">
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></div>
-                <input type="password" class="form-control" id="password" placeholder="密码" required>
+                <input type="password" class="form-control" name="password" id="password" placeholder="密码" required>
             </div>
         </div>
         <div class="error-msg" id="password-err"><i class="fa fa-exclamation-circle"></i><span></span></div>

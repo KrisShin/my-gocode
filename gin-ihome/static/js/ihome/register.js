@@ -4,6 +4,7 @@ function getCookie(name) {
 }
 
 var imageCodeId = "";
+var captcha;
 
 function generateUUID() {
     var d = new Date().getTime();
@@ -25,6 +26,7 @@ function generateImageCode() {
         dataType: 'json',
         success: function (data) {
             $('#captcha').html(data.captcha)
+            captcha = data.captcha
         },
         error: function () {
             console.log(data.msg)
@@ -57,8 +59,7 @@ function sendSMSCode() {
                     generateImageCode();
                 }
                 $(".phonecode-a").attr("onclick", "sendSMSCode();");
-            }
-            else {
+            } else {
                 var $time = $(".phonecode-a");
                 var duration = 60;
                 var intervalid = setInterval(function () {
@@ -78,7 +79,8 @@ $(document).ready(function () {
     generateImageCode();
     $("#mobile").focus(function () {
         $("#mobile-err").hide();
-    });$("#username").focus(function () {
+    });
+    $("#username").focus(function () {
         $("#mobile-err").hide();
     });
     $("#imagecode").focus(function () {
@@ -101,9 +103,19 @@ $(document).ready(function () {
         imgcode = $("#imagecode").val();
         passwd = $("#password").val();
         passwd2 = $("#password2").val();
+        if (!username) {
+            $("#name-err span").html("请填写用户名！");
+            $("#name-err").show();
+            return;
+        }
         if (!mobile) {
             $("#mobile-err span").html("请填写正确的手机号！");
             $("#mobile-err").show();
+            return;
+        }
+        if (imgcode!==captcha.toLowerCase()){
+            $("#image-code-err span").html("请填写正确的验证码(不区分大小写)！");
+            $("#image-code-err").show();
             return;
         }
         // if (!phoneCode) {
@@ -125,10 +137,10 @@ $(document).ready(function () {
             url: '/users/register',
             type: 'POST',
             dataType: 'json',
-            data: {'phone': mobile, 'name': username, 'password': passwd, 'password2': passwd2},
+            data: {'phone': mobile, 'name': username, 'password': passwd},
             success: function (data) {
                 if (data.code == 200) {
-                    window.location.href = '/users/render_login/'
+                    window.location.href = '/'
                 }
             },
             error: function (data) {

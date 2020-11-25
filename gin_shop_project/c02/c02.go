@@ -2,15 +2,16 @@ package c02
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type UserInfo struct {
 	Id   int
-	Name string
-	Age  int
-	Addr string
+	Name string `form:"username"`
+	Age  int    `form:"age"`
+	Addr string `form:"addr"`
 }
 
 func User(con *gin.Context) {
@@ -65,18 +66,18 @@ func Param2(ctx *gin.Context) {
 func GetQueryData(ctx *gin.Context) {
 	id := ctx.Query("id")
 
-	name:=ctx.DefaultQuery("name","www")
+	name := ctx.DefaultQuery("name", "www")
 	fmt.Println(name)
 	ctx.String(http.StatusOK, "hello %s", id)
 }
 
-func ToUserAdd(ctx *gin.Context){
-	ctx.HTML(http.StatusOK,"cha02/user_add",nil)
+func ToUserAdd(ctx *gin.Context) {
+	ctx.HTML(http.StatusOK, "cha02/user_add", nil)
 }
 
-func DoUserAdd(ctx *gin.Context){
-username:=ctx.PostForm("username")
-	password:=ctx.PostForm("password")
-	fmt.Println(username,password)
-	ctx.String(http.StatusOK,"success!!!")
+func DoUserAdd(ctx *gin.Context) {
+	username := ctx.PostForm("username")
+	password := ctx.PostForm("password")
+	fmt.Println(username, password)
+	ctx.String(http.StatusOK, "success!!!")
 }
