@@ -13,6 +13,7 @@ type User struct {
 	Avatar       string `form:"avatar"`
 	IdName       string `form:"id_name"`
 	IdCard       string `form:"id_card" gorm:"unique;size:19"`
-	//HouseId int `gorm:"index"`
+
+	Houses []House `gorm:"foreignKey:ID"`
 	//orders		order.Order
 }

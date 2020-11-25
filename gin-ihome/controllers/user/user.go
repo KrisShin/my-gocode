@@ -29,5 +29,5 @@ func Register(ctx *gin.Context) {
 	}
 
 	global.GVA_DB.Create(&user)
-	ctx.JSON(http.StatusOK, gin.H{"success": true, "user": user})
+	ctx.JSON(http.StatusOK, gin.H{"code": http.StatusOK})
 }

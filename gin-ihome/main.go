@@ -34,16 +34,17 @@ func OrdersUrl(engine *gin.Engine) {
 func main() {
 	global.GVA_DB = dao.Connection()
 	dao.MigrateDB(global.GVA_DB)
+	//dao.Initialize(global.GVA_DB)
 	defer dao.CloseConn(global.GVA_DB)
 
-	engine := gin.Default()
-	engine.Static("/static", "static")
-	engine.LoadHTMLGlob("templates/*")
-
-	MainView(engine)
-	UsersUrl(engine)
-	HouseUrl(engine)
-	OrdersUrl(engine)
-	
-	engine.Run(":9000")
+	//engine := gin.Default()
+	//engine.Static("/static", "static")
+	//engine.LoadHTMLGlob("templates/*")
+	//
+	//MainView(engine)
+	//UsersUrl(engine)
+	//HouseUrl(engine)
+	//OrdersUrl(engine)
+	//
+	//engine.Run(":9000")
 }
