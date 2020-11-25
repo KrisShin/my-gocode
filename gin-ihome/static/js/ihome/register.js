@@ -139,11 +139,13 @@ $(document).ready(function () {
             dataType: 'json',
             data: {'phone': mobile, 'name': username, 'password': passwd},
             success: function (data) {
+                console.log("login success")
                 if (data.code == 200) {
                     window.location.href = '/'
                 }
             },
             error: function (data) {
+                console.log("login failed")
                 console.log(data.msg)
             }
         })

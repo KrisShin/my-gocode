@@ -1,8 +1,8 @@
 package user
 
 import (
-	"fmt"
-	"gin-ihome/dao"
+	"gin-ihome/global"
+	"gin-ihome/models"
 	"gin-ihome/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -21,14 +21,13 @@ func Captcha(ctx *gin.Context) {
 }
 
 func Register(ctx *gin.Context) {
-	//user := models.User{Name: "zhoucun", Phone: "12312312344", Password: "z123123"}
-	//err := ctx.ShouldBind(&user)
-	//if err != nil {
-	//	panic("bind data failed")
-	//	ctx.JSON(http.StatusInternalServerError, gin.H{"msg": "bind data failed"})
-	//}
+	user := models.User{}
+	err := ctx.ShouldBind(&user)
+	if err != nil {
+		panic("bind data failed")
+		ctx.JSON(http.StatusInternalServerError, gin.H{"msg": "bind data failed"})
+	}
 
-	fmt.Println(dao.DB)
-	//ctx.JSON(http.StatusOK, gin.H{"success": true, "user": user})
-	ctx.String(http.StatusOK, "success")
+	global.GVA_DB.Create(&user)
+	ctx.JSON(http.StatusOK, gin.H{"success": true, "user": user})
 }

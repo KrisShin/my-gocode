@@ -3,7 +3,9 @@ package main
 import (
 	"gin-ihome/controllers/house"
 	"gin-ihome/controllers/user"
+	"gin-ihome/dao"
 	_ "gin-ihome/dao"
+	"gin-ihome/global"
 	"github.com/gin-gonic/gin"
 )
 
@@ -30,12 +32,18 @@ func OrdersUrl(engine *gin.Engine) {
 }
 
 func main() {
+	global.GVA_DB = dao.Connection()
+	dao.MigrateDB(global.GVA_DB)
+	defer dao.CloseConn(global.GVA_DB)
+
 	engine := gin.Default()
 	engine.Static("/static", "static")
 	engine.LoadHTMLGlob("templates/*")
+
 	MainView(engine)
 	UsersUrl(engine)
 	HouseUrl(engine)
 	OrdersUrl(engine)
+	
 	engine.Run(":9000")
 }
