@@ -1,7 +1,6 @@
 package dao
 
 import (
-	"fmt"
 	"gin-ihome/config"
 	"gin-ihome/models"
 	"time"
@@ -29,14 +28,13 @@ func Connection() *gorm.DB {
 }
 
 func MigrateDB(db *gorm.DB) {
-	res := db.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(
+	db.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(
 		&models.Area{},
 		&models.Image{},
 		&models.Facility{},
 		&models.User{},
 		&models.House{},
 		&models.Order{})
-	fmt.Println(res)
 }
 
 func CloseConn(db *gorm.DB) {
@@ -70,23 +68,23 @@ func Initialize(db *gorm.DB) {
 	}
 	db.Create(&facilities)
 
-	areas := []models.Area{
-		models.Area{Name: "东城区"},
-		models.Area{Name: "西城区"},
-		models.Area{Name: "朝阳区"},
-		models.Area{Name: "海淀区"},
-		models.Area{Name: "昌平区"},
-		models.Area{Name: "丰台区"},
-		models.Area{Name: "房山区"},
-		models.Area{Name: "通州区"},
-		models.Area{Name: "顺义区"},
-		models.Area{Name: "大兴区"},
-		models.Area{Name: "怀柔区"},
-		models.Area{Name: "平谷区"},
-		models.Area{Name: "密云区"},
-		models.Area{Name: "延庆区"},
-		models.Area{Name: "石景山区"},
-		models.Area{Name: "门头沟区"},
-	}
-	db.Create(&areas)
+	//areas := []models.Area{
+	//	models.Area{Name: "东城区"},
+	//	models.Area{Name: "西城区"},
+	//	models.Area{Name: "朝阳区"},
+	//	models.Area{Name: "海淀区"},
+	//	models.Area{Name: "昌平区"},
+	//	models.Area{Name: "丰台区"},
+	//	models.Area{Name: "房山区"},
+	//	models.Area{Name: "通州区"},
+	//	models.Area{Name: "顺义区"},
+	//	models.Area{Name: "大兴区"},
+	//	models.Area{Name: "怀柔区"},
+	//	models.Area{Name: "平谷区"},
+	//	models.Area{Name: "密云区"},
+	//	models.Area{Name: "延庆区"},
+	//	models.Area{Name: "石景山区"},
+	//	models.Area{Name: "门头沟区"},
+	//}
+	//db.Create(&areas)
 }
