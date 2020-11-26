@@ -17,7 +17,7 @@ SHOW_URL = os.path.join('\static', os.path.join('media', 'upload'))
 # 数据库配置
 DATABASE = {
     # 用户
-    'USER': 'root',
+    'USER': 'user',
     # 密码
     'PASSWORD': '123456',
     # 地址

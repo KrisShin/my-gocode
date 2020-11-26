@@ -1,9 +1,8 @@
 package house
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func IndexView(ctx *gin.Context) {

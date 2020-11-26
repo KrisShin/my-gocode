@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"math/rand"
 	"time"
 )
@@ -25,6 +27,13 @@ func RandString(len int) string {
 		bytes[i] = byte(b)
 	}
 	return string(bytes)
+}
+
+func GetMD5(str string) string {
+	data := []byte(str)
+	m := md5.New()
+	m.Write(data)
+	return hex.EncodeToString(m.Sum(nil))
 }
 
 //drop table areas;

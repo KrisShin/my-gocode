@@ -113,7 +113,7 @@ $(document).ready(function () {
             $("#mobile-err").show();
             return;
         }
-        if (imgcode!==captcha.toLowerCase()){
+        if (imgcode !== captcha.toLowerCase()) {
             $("#image-code-err span").html("请填写正确的验证码(不区分大小写)！");
             $("#image-code-err").show();
             return;
@@ -139,14 +139,13 @@ $(document).ready(function () {
             dataType: 'json',
             data: {'phone': mobile, 'name': username, 'password': passwd},
             success: function (data) {
-                console.log("login success")
                 if (data.code == 200) {
-                    window.location.href = '/'
+                    console.log("login success")
+                    window.location.href = '/login'
                 }
             },
             error: function (data) {
-                console.log("login failed")
-                console.log(data.msg)
+                console.log("login failed: " + data.msg)
             }
         })
     });
