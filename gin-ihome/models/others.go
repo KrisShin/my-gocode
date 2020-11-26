@@ -4,6 +4,7 @@ import "gorm.io/gorm"
 
 type Image struct {
 	gorm.Model
-	Name string
-	Url  string
+	Url       string
+	HouseID   int
+	CommentID int
 }

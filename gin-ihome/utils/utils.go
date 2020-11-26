@@ -26,3 +26,11 @@ func RandString(len int) string {
 	}
 	return string(bytes)
 }
+
+//drop table areas;
+//drop table comments;
+//drop table facilities;
+//drop table houses;
+//drop table images;
+//drop table orders;
+//drop table users;

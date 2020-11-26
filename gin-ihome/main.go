@@ -35,7 +35,8 @@ func main() {
 	global.GVA_DB = dao.Connection()
 	dao.MigrateDB(global.GVA_DB)
 	//dao.Initialize(global.GVA_DB)
-	defer dao.CloseConn(global.GVA_DB)
+	db, _ := global.GVA_DB.DB()
+	defer db.Close()
 
 	//engine := gin.Default()
 	//engine.Static("/static", "static")

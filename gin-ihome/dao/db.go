@@ -29,63 +29,59 @@ func Connection() *gorm.DB {
 
 func MigrateDB(db *gorm.DB) {
 	db.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(
-		&models.Facility{},
-		&models.Area{},
-		&models.Image{},
 		&models.User{},
 		&models.House{},
 		&models.Order{},
-		)
+		&models.Facility{},
+		&models.Area{},
+		&models.Image{},
+		&models.Comment{},
+		//&models.Aa{},
+		//&models.Bb{},
+		//&models.Cc{},
+	)
 }
 
-func CloseConn(db *gorm.DB) {
-	sqlDB, err := db.DB()
-	if err != nil {
-		panic(err)
-	}
-	sqlDB.Close()
-}
-
-func Initialize(db *gorm.DB) {
-	facilities := []models.Facility{
-		models.Facility{Name: "空调"},
-		models.Facility{Name: "电视"},
-		models.Facility{Name: "冰箱"},
-		models.Facility{Name: "电风扇"},
-		models.Facility{Name: "无线网"},
-		models.Facility{Name: "宽带"},
-		models.Facility{Name: "燃气灶"},
-		models.Facility{Name: "电磁炉"},
-		models.Facility{Name: "浴缸"},
-		models.Facility{Name: "马桶"},
-		models.Facility{Name: "锅"},
-		models.Facility{Name: "电饭煲"},
-		models.Facility{Name: "衣柜"},
-		models.Facility{Name: "书桌"},
-		models.Facility{Name: "椅子"},
-		models.Facility{Name: "茶几"},
-		models.Facility{Name: "沙发"},
-		models.Facility{Name: "洗衣机"},
-	}
-	db.Create(&facilities)
-
-	areas := []models.Area{
-		models.Area{Name: "东城区"},
-		models.Area{Name: "西城区"},
-		models.Area{Name: "朝阳区"},
-		models.Area{Name: "海淀区"},
-		models.Area{Name: "昌平区"},
-		models.Area{Name: "丰台区"},
-		models.Area{Name: "房山区"},
-		models.Area{Name: "通州区"},
-		models.Area{Name: "顺义区"},
-		models.Area{Name: "大兴区"},
-		models.Area{Name: "怀柔区"},
-		models.Area{Name: "平谷区"},
-		models.Area{Name: "密云区"},
-		models.Area{Name: "延庆区"},
-		models.Area{Name: "石景山区"},
-		models.Area{Name: "门头沟区"},
-	}
-	db.Create(&areas)
-}
+//func Initialize(db *gorm.DB) {
+//	facilities := []models.Facility{
+//		models.Facility{Name: "空调"},
+//		models.Facility{Name: "电视"},
+//		models.Facility{Name: "冰箱"},
+//		models.Facility{Name: "电风扇"},
+//		models.Facility{Name: "无线网"},
+//		models.Facility{Name: "宽带"},
+//		models.Facility{Name: "燃气灶"},
+//		models.Facility{Name: "电磁炉"},
+//		models.Facility{Name: "浴缸"},
+//		models.Facility{Name: "马桶"},
+//		models.Facility{Name: "锅"},
+//		models.Facility{Name: "电饭煲"},
+//		models.Facility{Name: "衣柜"},
+//		models.Facility{Name: "书桌"},
+//		models.Facility{Name: "椅子"},
+//		models.Facility{Name: "茶几"},
+//		models.Facility{Name: "沙发"},
+//		models.Facility{Name: "洗衣机"},
+//	}
+//	db.Create(&facilities)
+//
+//	areas := []models.Area{
+//		models.Area{Name: "东城区"},
+//		models.Area{Name: "西城区"},
+//		models.Area{Name: "朝阳区"},
+//		models.Area{Name: "海淀区"},
+//		models.Area{Name: "昌平区"},
+//		models.Area{Name: "丰台区"},
+//		models.Area{Name: "房山区"},
+//		models.Area{Name: "通州区"},
+//		models.Area{Name: "顺义区"},
+//		models.Area{Name: "大兴区"},
+//		models.Area{Name: "怀柔区"},
+//		models.Area{Name: "平谷区"},
+//		models.Area{Name: "密云区"},
+//		models.Area{Name: "延庆区"},
+//		models.Area{Name: "石景山区"},
+//		models.Area{Name: "门头沟区"},
+//	}
+//	db.Create(&areas)
+//}
