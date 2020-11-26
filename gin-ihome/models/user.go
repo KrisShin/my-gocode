@@ -10,10 +10,7 @@ type User struct {
 	Password     string `form:"password"`
 	PasswordHash string
 	Phone        string `form:"phone" gorm:"unique;size:11"`
-	Avatar       string `form:"avatar"`
+	Avatar       Image  `form:"avatar" gorm:"references:ID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	IdName       string `form:"id_name"`
 	IdCard       string `form:"id_card" gorm:"unique;size:19"`
-
-	//Houses []House `gorm:"foreignKey:ID"`
-	//orders		order.Order
 }
