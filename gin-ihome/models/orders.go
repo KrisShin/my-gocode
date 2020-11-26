@@ -8,7 +8,6 @@ import (
 type Order struct {
 	gorm.Model
 	UserID    int
-	User      User
 	HouseID   int
 	House     House
 	BeginDate time.Time

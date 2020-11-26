@@ -29,7 +29,7 @@ function generateImageCode() {
             captcha = data.captcha
         },
         error: function () {
-            console.log(data.msg)
+            console.log(data)
         }
     })
 }
@@ -142,10 +142,16 @@ $(document).ready(function () {
                 if (data.code == 200) {
                     console.log("login success")
                     window.location.href = '/login'
+                } else if (data.code == 1001) {
+                    $("#password2-err span").html(data.msg);
+                    $("#password2-err").show();
+                } else if (data.code == 1002) {
+                    $("#mobile-err span").html(data.msg);
+                    $("#mobile-err").show();
+                } else if (data.code == 1003) {
+                    $("#mobile-err span").html(data.msg);
+                    $("#mobile-err").show();
                 }
-            },
-            error: function (data) {
-                console.log("login failed: " + data.msg)
             }
         })
     });
