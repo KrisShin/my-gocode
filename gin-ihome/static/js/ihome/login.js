@@ -31,7 +31,7 @@ $(document).ready(function () {
             data: {'phone': mobile, 'password': passwd},
             success: function (data) {
                 if (data.code == 200) {
-                    location.href = '/users/render_my/'
+                    location.href = '/my'
                 }
             },
             error: function (data) {

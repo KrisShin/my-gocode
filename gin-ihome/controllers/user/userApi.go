@@ -48,7 +48,7 @@ func Login(ctx *gin.Context) {
 		return
 	}
 
-	if err := global.GVA_DB.First(&models.User{}, "phone = ?", phone).Error; err == nil {
+	if err := global.GVA_DB.First(&models.User{}, "phone = ?", phone).Error; err != nil {
 		ctx.JSON(http.StatusAccepted, gin.H{"code": 1003, "msg": "该用户不存在,请注册"})
 		return
 	}
