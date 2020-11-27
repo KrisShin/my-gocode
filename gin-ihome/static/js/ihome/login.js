@@ -28,7 +28,7 @@ $(document).ready(function () {
             url: '/users/login/',
             type: 'POST',
             dataType: 'json',
-            data: {'mobile': mobile, 'password': passwd},
+            data: {'phone': mobile, 'password': passwd},
             success: function (data) {
                 if (data.code == 200) {
                     location.href = '/users/render_my/'
