@@ -11,4 +11,5 @@ func MainView(engine *gin.Engine) {
 	engine.GET("/", house.IndexView)
 	engine.GET("/login", user.LoginView)
 	engine.GET("/register", user.RegisterView)
+	engine.GET("/my", user.MyView)
 }

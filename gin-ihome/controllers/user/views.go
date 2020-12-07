@@ -12,3 +12,7 @@ func LoginView(ctx *gin.Context) {
 func RegisterView(ctx *gin.Context) {
 	ctx.HTML(http.StatusOK, "register.html", nil)
 }
+
+func MyView(ctx *gin.Context){
+	ctx.HTML(http.StatusOK,"my.html", nil)
+}
