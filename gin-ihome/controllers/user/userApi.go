@@ -62,6 +62,10 @@ func Login(ctx *gin.Context) {
 	}
 }
 
+func Logout(ctx *gin.Context)  {
+	ctx.JSON(http.StatusOK,gin.H{"code":200})
+}
+
 // @Tags Base
 // @Summary 用户登录
 // @Produce  application/json

@@ -11,4 +11,5 @@ func UsersUrl(engine *gin.Engine) {
 	users.POST("/captcha", user.Captcha)
 	users.POST("/register", user.Register)
 	users.POST("/login", user.Login)
+	users.POST("/logout", user.Logout)
 }

@@ -31,10 +31,10 @@
                         <a class="fr" href="/profile" id="to_profile">修改</a>
                     </div>
                     <div class="menu-content">
-                        <img id="user-avatar" src="{{ .avatar?.avatar:"/static/defaultAvatar.png" }}">
+                        <img id="user-avatar" src="{{if .avatar}}{{.avatar}}{{else}}{{"/static/images/landlord01.jpg"}}{{end}}">
                         <div class="menu-text">
-                            <h3>用户名：<span id="user-name">{{ current_user.name }}</span></h3>
-                            <h5>手机号：<span id="user-mobile">{{ current_user.phone }}</span></h5>
+                            <h3>用户名：<span id="user-name">{{ .name }}</span></h3>
+                            <h5>手机号：<span id="user-mobile">{{ .phone }}</span></h5>
                         </div>
                     </div>
                 </li>
@@ -46,7 +46,7 @@
                 <li>
                     <div class="menu-title menu-radius">
                         <a href="/auth"><h3>实名认证</h3><span id="auth_status" style="color: lightgreen"
-                                                                         hidden="hidden">{{ current_user.id_card }}</span></a>
+                                                                         hidden="hidden">{{ .id_card }}</span></a>
                     </div>
                 </li>
                 <li>
