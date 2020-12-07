@@ -53,7 +53,7 @@ func Login(ctx *gin.Context) {
 		return
 	}
 	passwordHash := utils.GetMD5(password)
-	if err := global.GVA_DB.Where("Phone = ? AND PasswordHash = ?", phone, passwordHash).Error; err == nil {
+	if err := global.GVA_DB.Where("Phone = ? AND PasswordHash = ?", phone, passwordHash).First(&models.User{}).Error; err == nil {
 		ctx.JSON(http.StatusOK, gin.H{"code": http.StatusOK})
 		return
 	} else {
@@ -62,8 +62,21 @@ func Login(ctx *gin.Context) {
 	}
 }
 
-func Logout(ctx *gin.Context)  {
-	ctx.JSON(http.StatusOK,gin.H{"code":200})
+func Logout(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, gin.H{"code": 200})
+}
+
+func UpdateUser(ctx *gin.Context) {
+
+}
+func DeleteUser(ctx *gin.Context) {
+	userId := ctx.Query("user_id")
+	if user := global.GVA_DB.First(&models.User{}, "ID = ?", userId); user != nil {
+		global.GVA_DB.Delete(&user)
+		ctx.JSON(http.StatusOK, gin.H{"code": http.StatusOK})
+	} else {
+		ctx.JSON(http.StatusOK, gin.H{"code": 1003, "msg": "用户不存在"})
+	}
 }
 
 // @Tags Base
