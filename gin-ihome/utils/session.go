@@ -5,13 +5,12 @@ import (
 	"github.com/gin-contrib/sessions"
 )
 
-func GetUser(session sessions.Session) User {
+func GetUser(session sessions.Session) interface{} {
 	user := session.Get("loginUser")
-	if user == nil {
-		return nil
-	} else {
+	if user != nil {
 		return user.(User)
 	}
+	return nil
 }
 
 func SetUser(session sessions.Session, user User) {
@@ -22,13 +21,4 @@ func SetUser(session sessions.Session, user User) {
 func ClearLogin(session sessions.Session) {
 	session.Delete("loginUser")
 	session.Save()
-}
-
-func IsLogin(session sessions.Session) bool {
-	user := session.Get("loginUser")
-	if user == nil {
-		return false
-	} else {
-		return true
-	}
 }

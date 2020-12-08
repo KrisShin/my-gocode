@@ -72,8 +72,8 @@ func Login(ctx *gin.Context) {
 
 func Logout(ctx *gin.Context) {
 	session := sessions.Default(ctx)
-	ok := utils.IsLogin(session)
-	if !ok {
+	user := utils.GetUser(session)
+	if user == nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"code": http.StatusUnauthorized, "msg":"请重新登陆"})
 		return
 	}
@@ -83,12 +83,11 @@ func Logout(ctx *gin.Context) {
 
 func Auth(ctx *gin.Context) {
 	session := sessions.Default(ctx)
-	ok := utils.IsLogin(session)
-	if !ok {
+	user := utils.GetUser(session)
+	if user == nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"code": http.StatusUnauthorized, "msg":"请重新登陆"})
 		return
 	}
-	user := utils.GetUser(session)
 	idName := ctx.PostForm("id_name")
 	idCard := ctx.PostForm("id_card")
 	idRex := regexp.MustCompile(`^\d{17}[\d,x,X]$`)
