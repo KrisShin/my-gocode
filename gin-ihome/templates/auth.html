@@ -1,3 +1,4 @@
+{{define "auth.html"}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,12 +36,12 @@
                         <div class="form-group">
                             <label for="real-name">真实姓名</label>
                             <input type="text" class="form-control" name="real_name" id="real-name"
-                                   value="{{ current_user.id_name }}">
+                                   value="{{ .idName }}">
                         </div>
                         <div class="form-group">
                             <label for="id-card">身份证号码</label>
                             <input type="text" class="form-control" name="id_card" id="id-card"
-                                   value="{{ current_user.id_card }}">
+                                   value="{{ .idCard }}">
                         </div>
                         <div class="error-msg"><i class="fa fa-exclamation-circle"></i>信息填写不完整，请补全信息</div>
                         <input type="submit" class="btn btn-success" id="save_btn" value="保存">
@@ -68,3 +69,4 @@
 <script src="/static/js/template.js"></script>
 <script src="/static/js/ihome/auth.js"></script>
 </html>
+{{end}}
