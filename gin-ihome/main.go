@@ -1,20 +1,27 @@
 package main
 
 import (
+	"encoding/gob"
 	"gin-ihome/dao"
 	"gin-ihome/global"
+	"gin-ihome/models"
 	. "gin-ihome/router"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	global.GVA_DB = dao.Connection()
-	dao.MigrateDB(global.GVA_DB)
-	//dao.Initialize(global.GVA_DB)
-	db, _ := global.GVA_DB.DB()
+	global.DB = dao.Connection()
+	dao.MigrateDB(global.DB)
+	//dao.Initialize(global.DB)
+	db, _ := global.DB.DB()
 	defer db.Close()
 
+	gob.Register(models.User{})
 	engine := gin.Default()
+	store := cookie.NewStore([]byte("secret"))
+	engine.Use(sessions.Sessions("ihomeSession", store))
 	engine.Static("/static", "static")
 	engine.LoadHTMLGlob("templates/*")
 

@@ -3,7 +3,7 @@ package global
 import "gorm.io/gorm"
 
 var (
-	GVA_DB *gorm.DB
+	DB *gorm.DB
 	//GVA_REDIS  *redis.Client
 	//GVA_CONFIG config.Server
 	//GVA_VP     *viper.Viper

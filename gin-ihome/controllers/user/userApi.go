@@ -1,9 +1,11 @@
 package user
 
 import (
+	"fmt"
 	"gin-ihome/global"
-	"gin-ihome/models"
+	. "gin-ihome/models"
 	"gin-ihome/utils"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"regexp"
@@ -14,7 +16,7 @@ func Captcha(ctx *gin.Context) {
 }
 
 func Register(ctx *gin.Context) {
-	user := models.User{}
+	user := User{}
 
 	if err := ctx.ShouldBind(&user); err != nil {
 		ctx.JSON(http.StatusAccepted, gin.H{"code": 1001, "msg": "请完整填写数据"})
@@ -27,18 +29,19 @@ func Register(ctx *gin.Context) {
 		return
 	}
 
-	if err := global.GVA_DB.Find(&user, "phone = ?", user.Phone).Error; err != nil {
+	if err := global.DB.Find(&user, "phone = ?", user.Phone).Error; err != nil {
 		ctx.JSON(http.StatusAccepted, gin.H{"code": 1003, "msg": "该手机号已注册,请登陆"})
 		return
 	}
 
 	user.PasswordHash = utils.GetMD5(user.Password)
 
-	global.GVA_DB.Select(`created_at`, `updated_at`, `deleted_at`, `name`, `password`, `password_hash`, `phone`).Create(&user)
+	global.DB.Select(`created_at`, `updated_at`, `deleted_at`, `name`, `password`, `password_hash`, `phone`).Create(&user)
 	ctx.JSON(http.StatusOK, gin.H{"code": http.StatusOK})
 }
 
 func Login(ctx *gin.Context) {
+	var user User
 	phone := ctx.PostForm("phone")
 	password := ctx.PostForm("password")
 
@@ -48,12 +51,17 @@ func Login(ctx *gin.Context) {
 		return
 	}
 
-	if err := global.GVA_DB.First(&models.User{}, "phone = ?", phone).Error; err != nil {
+	if err := global.DB.First(&user, "phone = ?", phone).Error; err != nil {
 		ctx.JSON(http.StatusAccepted, gin.H{"code": 1003, "msg": "该用户不存在,请注册"})
 		return
 	}
 	passwordHash := utils.GetMD5(password)
-	if err := global.GVA_DB.Where("Phone = ? AND PasswordHash = ?", phone, passwordHash).First(&models.User{}).Error; err == nil {
+	fmt.Println(phone, password, passwordHash)
+	if err := global.DB.Where("Phone = ? AND Password_Hash = ?", phone, passwordHash).First(&user).Error; err == nil {
+		session := sessions.Default(ctx)
+		if session.Get("loginUser") == nil {
+			utils.SetUser(session, user)
+		}
 		ctx.JSON(http.StatusOK, gin.H{"code": http.StatusOK})
 		return
 	} else {
@@ -63,16 +71,56 @@ func Login(ctx *gin.Context) {
 }
 
 func Logout(ctx *gin.Context) {
+	session := sessions.Default(ctx)
+	ok := utils.IsLogin(session)
+	if !ok {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"code": http.StatusUnauthorized, "msg":"请重新登陆"})
+		return
+	}
+	utils.ClearLogin(session)
 	ctx.JSON(http.StatusOK, gin.H{"code": 200})
 }
 
-func UpdateUser(ctx *gin.Context) {
+func Auth(ctx *gin.Context) {
+	session := sessions.Default(ctx)
+	ok := utils.IsLogin(session)
+	if !ok {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"code": http.StatusUnauthorized, "msg":"请重新登陆"})
+		return
+	}
+	user := utils.GetUser(session)
+	idName := ctx.PostForm("id_name")
+	idCard := ctx.PostForm("id_card")
+	idRex := regexp.MustCompile(`^\d{17}[\d,x,X]$`)
 
+	if id := idRex.FindAllString(idCard, -1); id == nil {
+		ctx.JSON(http.StatusOK, gin.H{"code": 1005, "msg": "身份证有误"})
+		return
+	}
+
+	global.DB.Model(&user).UpdateColumns(User{IdName: idName, IdCard: idCard})
+	ctx.JSON(http.StatusOK, gin.H{"code": http.StatusOK})
 }
+
+func UpdateUser(ctx *gin.Context) {
+	category := ctx.Param("category")
+	if category == "pwd" {
+
+	} else if category == "info" {
+		var user User
+
+
+		if err := ctx.ShouldBind(&user); err != nil {
+			ctx.JSON(http.StatusAccepted, gin.H{"code": 1001, "msg": "请完整填写数据"})
+			return
+		}
+	}
+}
+
 func DeleteUser(ctx *gin.Context) {
 	userId := ctx.Query("user_id")
-	if user := global.GVA_DB.First(&models.User{}, "ID = ?", userId); user != nil {
-		global.GVA_DB.Delete(&user)
+	if user := global.DB.First(&User{}, "ID = ?", userId); user != nil {
+		global.DB.Delete(&user)
 		ctx.JSON(http.StatusOK, gin.H{"code": http.StatusOK})
 	} else {
 		ctx.JSON(http.StatusOK, gin.H{"code": 1003, "msg": "用户不存在"})
