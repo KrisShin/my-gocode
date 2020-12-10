@@ -12,5 +12,5 @@ func UsersUrl(engine *gin.Engine) {
 	users.POST("/register", user.Register)
 	users.POST("/login", user.Login)
 	users.POST("/logout", user.Logout)
-	users.POST("/auth", user.Auth)
+	users.POST("/update", user.Update)
 }
